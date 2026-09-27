@@ -5,11 +5,27 @@
 [![Jetpack Compose](https://img.shields.io/badge/Compose-BOM%202026.02.01-4285F4.svg?logo=jetpackcompose&logoColor=white)](https://developer.android.com/jetpack/compose)
 [![Min SDK](https://img.shields.io/badge/Min%20SDK-26%20(Android%208.0)-blue.svg)](https://apilevels.com/)
 [![Target SDK](https://img.shields.io/badge/Target%20SDK-37-darkgreen.svg)](https://apilevels.com/)
+[![Hardware Requirement](https://img.shields.io/badge/Hardware%20Req-Physical%20NFC%20Tag-darkorange.svg)](#hardware--physical-requirements)
 [![Architecture](https://img.shields.io/badge/Architecture-Service%20%2B%20Accessibility%20Blocker-orange.svg)]()
 
 FocusNFC is an Android deep-work enforcement system that pairs physical NFC desk tags with operating-system-level app isolation, automated Do Not Disturb (DND), and a low-level 40 Hz Gamma binaural beat sound generator.
 
 By requiring a physical somatic interaction (tapping an NFC tag on your desk or notebook) to initiate focus, it eliminates the cognitive friction and temptation loop of configuring digital timers on the very device that creates distraction.
+
+---
+
+## Hardware & Physical Requirements
+
+To use FocusNFC as designed, the following hardware is **required**:
+
+| Requirement | Specification | Details |
+| :--- | :--- | :--- |
+| **Physical NFC Tag** | NTAG213 / NTAG215 / NTAG216 | Standard rewritable NFC sticker, card, or keyfob. Programmed with URI `focusapp://start`. Minimum ~48 bytes memory required. |
+| **NFC-Enabled Android Device** | Android 8.0+ (API 26 to 37) | Device must have an active built-in NFC reader chip enabled in System Settings. |
+| **Tag Programmer** | Free NFC App (NFC Tools / NXP TagWriter) | Used once to write the `focusapp://start` NDEF URI record onto the physical tag. |
+
+> **Why a physical tag is required:**  
+> Digital blockers fail because entering the app to start a session presents screen notifications and social icons before work begins. Affixing a physical NFC sticker to your desk, laptop stand, or notebook creates an unavoidable somatic commitment: tap the tag, and the device immediately locks into focus mode.
 
 ---
 
@@ -122,10 +138,11 @@ FocusNFC requires explicit system privileges to enforce strict device focus:
 ## Getting Started & Building
 
 ### Prerequisites
+- **Physical NFC Tag:** At least one rewritable NFC tag (NTAG213 / NTAG215 / NTAG216 sticker, card, or token)
+- **Target Android Device:** Physical phone with hardware NFC controller (Android 8.0+ / API 26+)
 - **Android Studio:** Ladybug (2024.2+) or newer
 - **JDK:** OpenJDK 17 or 21
 - **Android SDK:** Platform 37 (Build Tools 35.0.0+)
-- **Device:** Physical Android device with NFC hardware running Android 8.0 (API 26) or higher.
 
 ### Clone & Build via Gradle
 
@@ -174,9 +191,9 @@ FocusNFC/
 - **Language:** Kotlin 2.2.10
 - **UI Toolkit:** Jetpack Compose (Compose BOM 2026.02.01, Material3)
 - **Audio Architecture:** Direct Android `AudioTrack` 16-bit PCM stereo (Sample Rate: 44,100 Hz)
+- **Physical Trigger:** NFC Forum Type 2 / Type 4 (NDEF URI `focusapp://start` on NTAG213/215/216)
 - **Minimum OS Support:** Android 8.0 (Oreo, API level 26)
 - **Target OS Support:** Android 15 / SDK 37
-- **NFC Standard:** NFC Forum Type 2 / Type 4 (NDEF URI Records)
 
 ---
 
