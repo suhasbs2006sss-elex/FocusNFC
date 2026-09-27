@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Outer Green Focus Target Ring -->
+    <path
+        android:strokeColor="#4CAF50"
+        android:strokeWidth="3.5"
+        android:fillColor="#00000000"
+        android:pathData="M54,20 A34,34 0 1,1 53.9,20" />
+
+    <!-- Crosshair Target Lines -->
+    <path
+        android:strokeColor="#4CAF50"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M54,10 L54,22 M54,86 L54,98 M10,54 L22,54 M86,54 L98,54" />
+
+    <!-- Bold Brain Left Hemisphere -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="4"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round"
+        android:pathData="M50,30 C39,28 30,34 28,44 C26,52 30,58 28,64 C26,72 32,80 42,82 C47,83 50,79 50,73 C50,68 45,65 50,60 C53,57 50,47 50,30 Z" />
+
+    <!-- Bold Brain Right Hemisphere -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="4"
+        android:fillColor="#00000000"
+        android:strokeLineCap="round"
+        android:pathData="M58,30 C69,28 78,34 80,44 C82,52 78,58 80,64 C82,72 76,80 66,82 C61,83 58,79 58,73 C58,68 63,65 58,60 C55,57 58,47 58,30 Z" />
+
+    <!-- Center Concentrate Glowing Green Core -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M54,54 A6,6 0 1,1 53.9,54" />
+
+</vector>
