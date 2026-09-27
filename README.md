@@ -8,7 +8,9 @@
 [![Hardware Requirement](https://img.shields.io/badge/Hardware%20Req-Physical%20NFC%20Tag-darkorange.svg)](#hardware--physical-requirements)
 [![Architecture](https://img.shields.io/badge/Architecture-Service%20%2B%20Accessibility%20Blocker-orange.svg)]()
 
-FocusNFC is an Android deep-work enforcement system that pairs physical NFC desk tags with operating-system-level app isolation, automated Do Not Disturb (DND), and a low-level 40 Hz Gamma binaural beat sound generator.
+FocusNFC is an Android deep-work enforcement system that pairs physical NFC desk tags with real-time app blocking, automated Do Not Disturb (DND), and a low-level 40 Hz Gamma binaural beat sound generator.
+
+**When a focus session is active, FocusNFC strictly blocks you from opening any selected distracting apps (such as Instagram, YouTube, Reddit, or games). Any attempt to open them immediately kicks you out to the home screen and terminates floating Picture-in-Picture windows.**
 
 By requiring a physical somatic interaction (tapping an NFC tag on your desk or notebook) to initiate focus, it eliminates the cognitive friction and temptation loop of configuring digital timers on the very device that creates distraction.
 
@@ -77,13 +79,14 @@ To use FocusNFC as designed, the following hardware is **required**:
 - Tapping an authorized desk tag launches the session instantly using cached duration and target package filters without unlocking other apps.
 - Eliminates decision fatigue and removes phone browsing before study sessions.
 
-### 2. Deep OS-Level Distraction Shielding (`BlockAccessibilityService`)
-- Operates via Android's `AccessibilityService` (`TYPE_WINDOW_STATE_CHANGED` and `TYPE_WINDOW_CONTENT_CHANGED`).
-- When a blocked package (e.g. social feeds, video apps, games) enters the foreground during an active session:
-  1. Issues `performGlobalAction(GLOBAL_ACTION_HOME)` within 10ms.
-  2. Brings `MainActivity` back to front with `FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_CLEAR_TOP` to actively terminate Picture-in-Picture (PiP) windows and floating overlay players.
-  3. Displays a cooldown-throttled haptic HUD warning.
-- **Fail-Safe UPI / Payment Whitelist:** Explicitly permits critical payment and banking gateways (`com.phonepe.app`, `net.one97.paytm`, `com.google.android.apps.nbu.paisa.user`, `in.org.npci.upiapp`, `com.sbi.upi`) so emergency transactions or bill payments are never trapped.
+### 2. Active Session App Blocking (`BlockAccessibilityService`)
+**During an active focus session, FocusNFC strictly blocks and defuses all selected apps on your phone in real time:**
+
+- **Custom Blocklist Selection:** You choose exactly which apps to block (Instagram, YouTube, Reddit, TikTok, Netflix, Games, etc.) using the in-app grid or search bar.
+- **Instant OS-Level Deflection:** The microsecond a blocked app attempts to open, Android's `AccessibilityService` detects `TYPE_WINDOW_STATE_CHANGED` and triggers `GLOBAL_ACTION_HOME` within 10 milliseconds, kicking you straight out of the app.
+- **Anti-Circumvention (PiP & Overlay Destruction):** To stop video apps from continuing in floating Picture-in-Picture (PiP) mode, FocusNFC forces itself to the foreground (`FLAG_ACTIVITY_CLEAR_TOP`), instantly collapsing background playback and popup overlays.
+- **Persistent Enforcement:** As long as the countdown timer is running, the blocked apps remain inaccessible. A brief warning toast (`⛔ Focus Mode Active! App Blocked.`) notifies the user.
+- **Emergency Payment Whitelist:** To ensure you are never stranded during emergencies, critical payment gateways (`PhonePe`, `Paytm`, `Google Pay`, `BHIM UPI`, `SBI UPI`) are explicitly whitelisted and will never be blocked.
 
 ### 3. Programmatic DND & Foreground Lifecycle (`FocusService`)
 - Bound to an ongoing `mediaPlayback` Foreground Service with public lockscreen chronometer notification.
